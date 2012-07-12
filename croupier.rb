@@ -1,14 +1,16 @@
 require "./carta"
+require "./jugador"
 
-class Croupier
-	def initialize
-		@cartas = Array.new
-	end
-
-	def agregarCarta carta
-		@cartas << carta
+class Croupier < Jugador
+	def initialize dinero
+		super(dinero)
 	end
 
 	def pedirCarta?
+		@juego.valor(1) < 17
+	end
+
+	def aperturar?
+		false
 	end
 end
