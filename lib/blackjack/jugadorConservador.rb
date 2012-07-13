@@ -1,5 +1,5 @@
-require "./carta"
-require "./jugador"
+require 'carta'
+require 'jugador'
 
 class JugadorConservador < Jugador
 	def initialize dinero, con_cuanto_planta

@@ -1,4 +1,4 @@
-require "./carta"
+require 'carta'
 
 class Mazo
 	PALOS = [:trebol, :diamantes, :corazones, :picas]

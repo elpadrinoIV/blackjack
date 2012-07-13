@@ -1,4 +1,4 @@
-require "./mazo"
+require 'mazo'
 
 class Sabot
 	def initialize cantidad_mazos

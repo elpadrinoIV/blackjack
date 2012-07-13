@@ -1,7 +1,7 @@
-require './jugador'
-require './croupier'
-require './juegoPersona'
-require './sabot'
+require 'jugador'
+require 'croupier'
+require 'juegoPersona'
+require 'sabot'
 
 class Game
 	def initialize

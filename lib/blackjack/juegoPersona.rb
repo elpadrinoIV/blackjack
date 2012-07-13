@@ -1,4 +1,4 @@
-require "./carta"
+require 'carta'
 
 class JuegoPersona
 	def initialize

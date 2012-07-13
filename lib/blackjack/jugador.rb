@@ -1,4 +1,4 @@
-require "./juegoPersona"
+require 'juegoPersona'
 
 class Jugador
 	def initialize dinero

@@ -1,5 +1,5 @@
-require "./carta"
-require "./jugador"
+require 'carta'
+require 'jugador'
 
 class Croupier < Jugador
 	def initialize dinero

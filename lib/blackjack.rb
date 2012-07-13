@@ -1,21 +1,26 @@
-require './game.rb'
-require './jugadorConservador.rb'
+%w[ calculadorPagoApuestas carta croupier game juego_persona \
+jugador jugadorConservador mazo mockJugador sabot].each{ |file|
+	require File.expand_path("../blackjack/#{file}", __FILE__)
+	]
 
-game = Game.new
-
-(1..3).each{ |j|
-	game.agregarJugador(JugadorConservador.new(10000, 12))
-}
-
-game.repartir
-
-cartas_croupier = game.getCroupier.getJuego.getJuegos.first
-puts "Cartas croupier: #{cartas_croupier[0].print} - #{cartas_croupier[1].print}"
-
-nro_jugador = 1
-game.getJugadores.each{ |jugador|
-	cartas_jugador = jugador.getJuego.getJuegos.first
-	puts "Cartas jugador nro #{nro_jugador} (#{cartas_jugador.size}): #{cartas_jugador[0].print} - #{cartas_jugador[1].print}"
-	nro_jugador += 1
-}
-	
+module Blackjack
+=begin
+  def self.transform_file(sourcename, targetname, model)
+    source = IO.read(sourcename)
+    template = Template.new(source)
+    result = template.render(model)
+    IO.write(targetname, result)
+  end
+=end
+end
+=begin
+class NilClass
+	def method_missing(*args)
+		if args.length == 1
+			return self
+		else
+			super
+		end
+	end
+end
+=end
