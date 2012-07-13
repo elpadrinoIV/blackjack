@@ -4,11 +4,14 @@ class Jugador
 	def initialize dinero
 		@dinero = dinero
 		@juego = JuegoPersona.new
-		@apuestas_juegos = Array.new
+		@apuestas_juegos = [0]
 		@apuesta_seguro = 0
 	end
 
 	def aperturar?
+	end
+
+	def duplicar?
 	end
 
 	def pedirCarta?
@@ -17,7 +20,13 @@ class Jugador
 	def apostar
 	end
 
-	def pagarSeguro?
+	def pagarSeguro
+	end
+
+	def aperturar
+	end
+
+	def duplicar
 	end
 
 	def getJuego
@@ -26,6 +35,14 @@ class Jugador
 
 	def getDinero
 		@dinero
+	end
+
+	def getApuestas
+		@apuestas_juegos
+	end
+
+	def getApuestaSeguro
+		@apuesta_seguro
 	end
 
 	def cobrarApuesta dinero_ganado

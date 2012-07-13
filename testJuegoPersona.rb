@@ -244,4 +244,64 @@ class TestJuegoPersona < Test::Unit::TestCase
 		assert_equal(24, valor_juego_2, "El segundo juego da 24")
 	end
 
+	def test_tiene_blackjack
+		juego = JuegoPersona.new
+		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		juego.agregarCarta carta1
+		juego.agregarCarta carta2
+
+		assert(juego.tieneBlackjack?, "10 y as es blackjack")
+
+		juego = JuegoPersona.new
+		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		juego.agregarCarta carta1
+		juego.agregarCarta carta2
+
+		assert(juego.tieneBlackjack?, "as y 10 es blackjack")
+	end
+
+	def test_no_tiene_blackjack
+		# suma 21 pero no es blackjack
+		juego = JuegoPersona.new
+		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 5
+		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 6
+		juego.agregarCarta carta1
+		juego.agregarCarta carta2
+		juego.agregarCarta carta3
+
+		assert(false == juego.tieneBlackjack?, "suma 21 pero no es blackjack")
+
+		# apertura pero no vale blackjack
+		juego = JuegoPersona.new
+		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		juego.agregarCarta carta1
+		juego.agregarCarta carta2
+
+		juego.aperturar
+		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		juego.agregarCarta carta3
+		juego.agregarCarta carta4
+
+		assert(false == juego.tieneBlackjack?, "con apertura no se puede sacar blackjack")
+
+		# apertura pero no vale blackjack
+		juego = JuegoPersona.new
+		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
+		juego.agregarCarta carta1
+		juego.agregarCarta carta2
+
+		juego.aperturar
+		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		juego.agregarCarta carta3
+		juego.agregarCarta carta4
+
+		assert(false == juego.tieneBlackjack?, "con apertura no se puede sacar blackjack")
+	end
 end

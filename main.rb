@@ -1,22 +1,21 @@
-$LOAD_PATH << File.dirname(__FILE__)
-require 'Carta'
-require 'Mazo'
-require 'Sabot'
+require './game.rb'
+require './jugadorConservador.rb'
 
-sabot = Sabot.new 1
-sabot.mezclar
-cartas = sabot.getCartas
+game = Game.new
 
-puts cartas.size
-cartas.each { |carta|
-#	 puts carta.print
+(1..3).each{ |j|
+	game.agregarJugador(JugadorConservador.new(10000, 12))
 }
 
-num = 1
-while !sabot.getCartas.empty?
-	carta_espiada = sabot.mirarProximasCartas 2
-	puts carta_espiada
-	carta = sabot.obtenerSiguienteCarta
-	puts "#{num}\t#{carta.print}"
-	num += 1
-end
+game.repartir
+
+cartas_croupier = game.getCroupier.getJuego.getJuegos.first
+puts "Cartas croupier: #{cartas_croupier[0].print} - #{cartas_croupier[1].print}"
+
+nro_jugador = 1
+game.getJugadores.each{ |jugador|
+	cartas_jugador = jugador.getJuego.getJuegos.first
+	puts "Cartas jugador nro #{nro_jugador} (#{cartas_jugador.size}): #{cartas_jugador[0].print} - #{cartas_jugador[1].print}"
+	nro_jugador += 1
+}
+	

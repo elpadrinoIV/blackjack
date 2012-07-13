@@ -4,7 +4,7 @@ class JuegoPersona
 	def initialize
 		# como se puede aperturar, pueden haber varios juegos
 		# Arranco inicializando el primer juego con un array de cartas vacío
-		@juegos = Array.new
+		@juegos = [ [] ]
 		@numero_juego = 0
 	end
 
@@ -64,5 +64,13 @@ class JuegoPersona
 			juego = @juegos[0]
 			juego[0].getValor == juego[1].getValor
 		end
+	end
+
+	def getJuegos
+		@juegos
+	end
+
+	def tieneBlackjack?
+		return (1 == @juegos.size && (2 == @juegos[0].size) && 21 == self.valor(1))
 	end
 end
