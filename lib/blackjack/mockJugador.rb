@@ -24,4 +24,16 @@ class MockJugador < Jugador
 		@dinero -= @apuesta_seguro
 	end
 
+  def aperturar
+    @juego.aperturar
+    @apuestas_juegos[1] = @apuestas_juegos[0]
+    @dinero -= @apuestas_juegos[1]
+  end
+
+  def duplicar
+    apuesta = @apuestas_juegos[0]
+    @apuestas_juegos[0] *= 2
+    @dinero -= apuesta
+  end
+
 end

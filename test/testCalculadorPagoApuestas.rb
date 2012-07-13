@@ -206,13 +206,13 @@ class TestCalculadorPagoApuestas < Test::Unit::TestCase
 	end
 
 	def test_apuesta_apertura_gana_ambas_normal
-		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 7
+		carta1 = Carta.new Mazo::NUMEROS[9], Mazo::PALOS.first, 10
+		carta2 = Carta.new Mazo::NUMEROS[6], Mazo::PALOS.first, 7
 		@croupier.getJuego.agregarCarta carta1
 		@croupier.getJuego.agregarCarta carta2
 
-		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
+		carta1 = Carta.new Mazo::NUMEROS[10], Mazo::PALOS.first, 10
+		carta2 = Carta.new Mazo::NUMEROS[11], Mazo::PALOS.first, 10
 		@jugador.getJuego.agregarCarta carta1
 		@jugador.getJuego.agregarCarta carta2
 
@@ -221,28 +221,20 @@ class TestCalculadorPagoApuestas < Test::Unit::TestCase
 		apuestas[0] = apuesta
 
 		@jugador.aperturar
-		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 9
+		carta3 = Carta.new Mazo::NUMEROS[8], Mazo::PALOS.first, 9
 		@jugador.getJuego.agregarCarta carta3
 		@jugador.getJuego.plantar
 
-		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 9
+		carta4 = Carta.new Mazo::NUMEROS[8], Mazo::PALOS.first, 9
 		@jugador.getJuego.agregarCarta carta4
 		@jugador.getJuego.plantar
-
-		@jugador.getJuego.getJuegos.each{ |juego|
-			puts juego
-			juego.each{|carta|
-				carta.print
-			}
-			puts "---"
-		}
 
 		pago_a_jugador = @calculador_pago.calcularPagoAJugador(@croupier, @jugador)
 
 		assert_equal(apuesta*2, pago_a_jugador, "Se le debe pagar los 2 juegos por aperturar")
 	end
 
-=begin
+
 	def test_apuesta_apertura_gana_ambas_con_blackjack
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 7
@@ -261,11 +253,9 @@ class TestCalculadorPagoApuestas < Test::Unit::TestCase
 		@jugador.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		@jugador.getJuego.agregarCarta carta3
-		@jugador.getJuego.plantar
 
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		@jugador.getJuego.agregarCarta carta4
-		@jugador.getJuego.plantar
 
 		pago_a_jugador = @calculador_pago.calcularPagoAJugador(@croupier, @jugador)
 
@@ -351,5 +341,4 @@ class TestCalculadorPagoApuestas < Test::Unit::TestCase
 
 		assert_equal(0, pago_a_jugador, "No se le debe pagar nada")
 	end
-=end
 end
