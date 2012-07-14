@@ -35,6 +35,7 @@ class Game
 	end
 
 	def fin_mano
+    # falta la parte de pagar
 	end
 
   def get_sabot

@@ -2,9 +2,11 @@ require 'carta'
 require 'jugador'
 
 class MockJugador < Jugador
+  attr_accessor :dinero_apuesta
 	def initialize dinero
 		super(dinero)
 		@con_cuanto_planta = 12
+    @dinero_apuesta = 50
 	end
 
 	def pedir_carta?
@@ -34,6 +36,11 @@ class MockJugador < Jugador
     apuesta = @apuestas_juegos[0]
     @apuestas_juegos[0] *= 2
     @dinero -= apuesta
+  end
+
+  def apostar
+    @apuestas_juegos[0] = @dinero_apuesta
+    @dinero -= @dinero_apuesta
   end
 
 end

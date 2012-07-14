@@ -48,4 +48,29 @@ class Jugador
 	def cobrar_apuesta dinero_ganado
 		@dinero += dinero_ganado
 	end
+
+  # Cuando el jugador pierde, debe entregar el dinero de la apuesta
+  def entregar_dinero_apuesta numero_apuesta
+    cantidad = @apuestas_juegos[numero_apuesta - 1]
+    @apuestas_juegos[numero_apuesta - 1] = 0
+    cantidad
+  end
+
+  def entregar_dinero_apuesta_seguro
+    cantidad = @apuesta_seguro
+    @apuesta_seguro = 0
+    cantidad
+  end
+
+  # Cuando el jugador gana o empata, se queda con el dinero de la apuesta
+  def guardar_dinero_apuesta numero_apuesta
+    @dinero += @apuestas_juegos[numero_apuesta - 1]
+    @apuestas_juegos[numero_apuesta - 1] = 0
+  end
+
+  def guardar_dinero_apuesta_seguro
+    @dinero += @apuesta_seguro
+    @apuesta_seguro = 0
+  end
+  
 end
