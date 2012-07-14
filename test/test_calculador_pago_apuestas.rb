@@ -1,8 +1,9 @@
+require File.dirname(__FILE__) + '/helper.rb'
 require 'calculadorPagoApuestas'
 require 'mockJugador'
 require 'croupier'
 require 'mazo'
-require 'test/unit'
+
 
 class TestCalculadorPagoApuestas < Test::Unit::TestCase
 	def setup

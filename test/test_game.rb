@@ -1,7 +1,8 @@
-require "./croupier"
-require "./game"
-require "./jugadorConservador"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'croupier'
+require 'game'
+require 'jugadorConservador'
 
 class TestGame < Test::Unit::TestCase
 	def setup
@@ -42,6 +43,7 @@ class TestGame < Test::Unit::TestCase
 		assert_equal(2, cartas_croupier.size, "El croupier deberia haber recibido cartas")
 	end
 
+=begin
 	def test_cuando_termina_la_mano_todo_a_cero
 		# se reparte, se juega, se termina la mano. Las apuestas deben quedar todas en 0,
 		# ningun jugador debe tener cartas, seguro, etc
@@ -69,4 +71,5 @@ class TestGame < Test::Unit::TestCase
 			assert_equal(0, juego.size, "Cuando termina la mano el croupier no debe tener mas cartas")
 		}
 	end
+=end
 end

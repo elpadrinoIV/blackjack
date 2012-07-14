@@ -1,8 +1,3 @@
-require 'test/unit'
-
-tests = Dir[File.expand_path("#{File.dirname(__FILE__)}/test*.rb")]
-
-tests.each { |file|
-  
-  require file
+Dir['**/test_*.rb'].each { |test_case|
+  require test_case
 }

@@ -1,5 +1,6 @@
-require "./sabot"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'sabot'
 
 class TestSabot < Test::Unit::TestCase
 	def test_cantidad_cartas_inicio

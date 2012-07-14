@@ -36,5 +36,10 @@ class Game
 
 	def finMano
 	end
+
+  def getSabot
+    @sabot
+  end
+  
 end
 

@@ -1,6 +1,7 @@
-require "./croupier"
-require "./mazo"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'croupier'
+require 'mazo'
 
 class TestCroupier < Test::Unit::TestCase
 	def setup

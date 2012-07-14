@@ -1,6 +1,7 @@
-require "./juegoPersona"
-require "./mazo"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'juegoPersona'
+require 'mazo'
 
 class TestJuegoPersona < Test::Unit::TestCase
 	def test_suma_juego_basico

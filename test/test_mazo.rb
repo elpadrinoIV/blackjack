@@ -1,5 +1,6 @@
-require "./mazo"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'mazo'
 
 class TestMazo < Test::Unit::TestCase
 	def test_cantidad_cartas_inicio

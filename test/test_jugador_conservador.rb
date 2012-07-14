@@ -1,6 +1,7 @@
-require "./jugadorConservador"
-require "./mazo"
-require "test/unit"
+require File.dirname(__FILE__) + '/helper.rb'
+
+require 'jugadorConservador'
+require 'mazo'
 
 class TestJugadorConservador < Test::Unit::TestCase
 	def setup
