@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/helper.rb'
 
-require 'juegoPersona'
+require 'juego_persona'
 require 'mazo'
 
 class TestJuegoPersona < Test::Unit::TestCase

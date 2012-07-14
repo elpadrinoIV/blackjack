@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/helper.rb'
 
-require 'jugadorConservador'
+require 'jugador_conservador'
 require 'mazo'
 
 class TestJugadorConservador < Test::Unit::TestCase

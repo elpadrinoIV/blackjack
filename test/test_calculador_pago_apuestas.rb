@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/helper.rb'
-require 'calculadorPagoApuestas'
-require 'mockJugador'
+require 'calculador_pago_apuestas'
+require 'mock_jugador'
 require 'croupier'
 require 'mazo'
 

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/helper.rb'
 
 require 'croupier'
 require 'game'
-require 'jugadorConservador'
+require 'jugador_conservador'
 
 class TestGame < Test::Unit::TestCase
 	def setup

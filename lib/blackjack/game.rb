@@ -1,6 +1,6 @@
 require 'jugador'
 require 'croupier'
-require 'juegoPersona'
+require 'juego_persona'
 require 'sabot'
 
 class Game
