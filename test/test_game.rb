@@ -30,8 +30,8 @@ class TestGame < Test::Unit::TestCase
 		@game.repartir
 
 		@game.getJugadores.each { |jugador|
-			cartas_jugador = jugador.getJuego.getJuegos.first
-			apuesta_jugador = jugador.getApuestas.first
+			cartas_jugador = jugador.get_juego.getJuegos.first
+			apuesta_jugador = jugador.get_apuestas.first
 			if (apuesta_jugador > 0)
 				assert_equal(2, cartas_jugador.size, "El jugador aposto, deberia haber recibido cartas")
 			else
@@ -39,7 +39,7 @@ class TestGame < Test::Unit::TestCase
 			end
 		}
 
-		cartas_croupier = @game.getCroupier.getJuego.getJuegos.first
+		cartas_croupier = @game.getCroupier.get_juego.getJuegos.first
 		assert_equal(2, cartas_croupier.size, "El croupier deberia haber recibido cartas")
 	end
 
@@ -56,15 +56,15 @@ class TestGame < Test::Unit::TestCase
 		@game.finMano
 
 		@game.getJugadores.each { |jugador|
-			jugador.getJuego.getJuegos.each{ |juego|
+			jugador.get_juego.getJuegos.each{ |juego|
 				assert_equal(0, juego.size, "Cuando termina la mano el jugador no debe tener mas cartas")
 			}
 
-			jugador.getApuestas.each{ |apuesta|
+			jugador.get_apuestas.each{ |apuesta|
 				assert_equal(0, apuesta, "Cuando termina la mano no hay mas apuestas")
 			}
 
-			assert_equal(0, jugador.getApuestaSeguro, "Cuando termina la mano no hay mas apuestas")
+			assert_equal(0, jugador.get_apuesta_seguro, "Cuando termina la mano no hay mas apuestas")
 		}
 
 		@game.getCroupier.getJuego.getJuegos.each{ |juego|

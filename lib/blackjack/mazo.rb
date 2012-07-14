@@ -15,7 +15,7 @@ class Mazo
 		}
 	end
 
-	def getCartas
+	def get_cartas
 		@cartas
 	end
 

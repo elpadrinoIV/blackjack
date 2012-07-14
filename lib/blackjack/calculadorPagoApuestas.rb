@@ -3,16 +3,16 @@ class CalculadorPagoApuestas
 	def initialize
 	end
 
-	def calcularPagoAJugador croupier, jugador
+	def calcular_pago_a_jugador croupier, jugador
 		cantidad_a_pagar = 0
-		apuesta = jugador.getApuestas.first
+		apuesta = jugador.get_apuestas.first
 		numero_juego = 1
-		hubo_apertura = (jugador.getJuego.getJuegos.size > 1)
-		jugador.getJuego.getJuegos.each { |juego|
-			case quienGana?(croupier.getJuego, jugador.getJuego, numero_juego, !hubo_apertura)
+		hubo_apertura = (jugador.get_juego.getJuegos.size > 1)
+		jugador.get_juego.getJuegos.each { |juego|
+			case quien_gana?(croupier.get_juego, jugador.get_juego, numero_juego, !hubo_apertura)
 			when :jugador
 				# pago el valor de la apuesta o 1.5 si es blackjack
-				if jugador.getJuego.tieneBlackjack?
+				if jugador.get_juego.tieneBlackjack?
 					cantidad_a_pagar += apuesta*1.5
 				else
 					cantidad_a_pagar += apuesta
@@ -21,8 +21,8 @@ class CalculadorPagoApuestas
 				# no le pago nada
 			end
 
-			if croupier.getJuego.tieneBlackjack? && jugador.getApuestaSeguro > 0
-				cantidad_a_pagar += jugador.getApuestaSeguro*2
+			if croupier.get_juego.tieneBlackjack? && jugador.get_apuesta_seguro > 0
+				cantidad_a_pagar += jugador.get_apuesta_seguro*2
 			end
 
 			numero_juego += 1
@@ -37,7 +37,7 @@ class CalculadorPagoApuestas
 	numero_juego: en la mayoria de los casos debería ser 1, en caso de apertura se debe pasar una vez 1 y una vez 2 
 	vale_blackjack_jugador en el caso de la apertura, 10 y as cuenta como 21, no como blackjack. En ese caso es false
 =end
-	def quienGana? juego_croupier, juego_jugador, numero_juego, vale_blackjack_jugador = true
+	def quien_gana? juego_croupier, juego_jugador, numero_juego, vale_blackjack_jugador = true
 		valor_juego_croupier = juego_croupier.valor(1)
 		valor_juego_jugador = juego_jugador.valor(numero_juego)
 

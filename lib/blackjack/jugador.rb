@@ -14,13 +14,13 @@ class Jugador
 	def duplicar?
 	end
 
-	def pedirCarta?
+	def pedir_carta?
 	end
 
 	def apostar
 	end
 
-	def pagarSeguro
+	def pagar_seguro
 	end
 
 	def aperturar
@@ -29,23 +29,23 @@ class Jugador
 	def duplicar
 	end
 
-	def getJuego
+	def get_juego
 		@juego
 	end
 
-	def getDinero
+	def get_dinero
 		@dinero
 	end
 
-	def getApuestas
+	def get_apuestas
 		@apuestas_juegos
 	end
 
-	def getApuestaSeguro
+	def get_apuesta_seguro
 		@apuesta_seguro
 	end
 
-	def cobrarApuesta dinero_ganado
+	def cobrar_apuesta dinero_ganado
 		@dinero += dinero_ganado
 	end
 end

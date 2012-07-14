@@ -6,7 +6,7 @@ class TestSabot < Test::Unit::TestCase
 	def test_cantidad_cartas_inicio
 		(1..10).each { |cantidad_mazos|
 			sabot = Sabot.new cantidad_mazos
-			cantidad_cartas = sabot.getCartas.size
+			cantidad_cartas = sabot.get_cartas.size
 			cantidad_cartas_esperadas = 52*cantidad_mazos
 		
 			assert_equal(cantidad_cartas_esperadas, cantidad_cartas, "deberian haber #{cantidad_cartas_esperadas} cartas")
@@ -16,7 +16,7 @@ class TestSabot < Test::Unit::TestCase
 		(1..10).each { |cantidad_mazos|
 			sabot = Sabot.new cantidad_mazos
 			sabot.mezclar
-			cantidad_cartas = sabot.getCartas.size
+			cantidad_cartas = sabot.get_cartas.size
 			cantidad_cartas_esperadas = 52*cantidad_mazos
 		
 			assert_equal(cantidad_cartas_esperadas, cantidad_cartas, "deberian haber #{cantidad_cartas_esperadas} cartas")
@@ -27,9 +27,9 @@ class TestSabot < Test::Unit::TestCase
 		sabot = Sabot.new 1
 
 		(1..10).each { |cantidad_cartas|
-			cantidad_de_cartas_antes = sabot.getCartas.size
-			sabot.mirarProximasCartas cantidad_cartas
-			cantidad_de_cartas_despues = sabot.getCartas.size
+			cantidad_de_cartas_antes = sabot.get_cartas.size
+			sabot.mirar_proximas_cartas cantidad_cartas
+			cantidad_de_cartas_despues = sabot.get_cartas.size
 
 			assert_equal(cantidad_de_cartas_antes, cantidad_de_cartas_despues, "No debe cambiar la cantidad de cartas cuando se las mira")
 		}
@@ -38,9 +38,9 @@ class TestSabot < Test::Unit::TestCase
 	def test_cambia_cantidad_despues_de_obtener_siguiente_carta
 		sabot = Sabot.new 1
 
-		cantidad_de_cartas_antes = sabot.getCartas.size
-		sabot.obtenerSiguienteCarta
-		cantidad_de_cartas_despues = sabot.getCartas.size
+		cantidad_de_cartas_antes = sabot.get_cartas.size
+		sabot.obtener_siguiente_carta
+		cantidad_de_cartas_despues = sabot.get_cartas.size
 
 
 		assert_equal(cantidad_de_cartas_antes - 1, cantidad_de_cartas_despues, "Si se obtiene una carta se debe sacar del sabot")
@@ -61,8 +61,8 @@ class TestSabot < Test::Unit::TestCase
 			sabot = Sabot.new cantidad_mazos
 			sabot.mezclar
 
-			while carta = sabot.obtenerSiguienteCarta
-				hash_cartas[ [carta.getNumero, carta.getPalo] ] += 1
+			while carta = sabot.obtener_siguiente_carta
+				hash_cartas[ [carta.get_numero, carta.get_palo] ] += 1
 			end
 
 			todas_las_cartas_bien = true
@@ -83,11 +83,11 @@ class TestSabot < Test::Unit::TestCase
 		sabot.mezclar
 
 		(1..5).each {|cantidad_cartas|
-			proximas_cartas = sabot.mirarProximasCartas cantidad_cartas
+			proximas_cartas = sabot.mirar_proximas_cartas cantidad_cartas
 			cartas_obtenidas = Array.new
 
 			(1..cantidad_cartas).each { |carta|
-				cartas_obtenidas << sabot.obtenerSiguienteCarta
+				cartas_obtenidas << sabot.obtener_siguiente_carta
 			}
 
 			assert_equal(proximas_cartas, cartas_obtenidas, "La carta obtenida debe ser la misma que la espiada")

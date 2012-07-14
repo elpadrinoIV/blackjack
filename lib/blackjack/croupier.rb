@@ -6,7 +6,7 @@ class Croupier < Jugador
 		super(dinero)
 	end
 
-	def pedirCarta?
+	def pedir_carta?
 		@juego.valor(1) < 17
 	end
 

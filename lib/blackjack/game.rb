@@ -26,11 +26,11 @@ class Game
 	def repartir
 		(1..2).each{ |i|
 			@jugadores.each{ |jugador|
-				if jugador.getApuestas.first > 0
-					jugador.getJuego.agregarCarta(@sabot.obtenerSiguienteCarta)
+				if jugador.get_apuestas.first > 0
+					jugador.get_juego.agregarCarta(@sabot.obtener_siguiente_carta)
 				end
 			}
-			@croupier.getJuego.agregarCarta(@sabot.obtenerSiguienteCarta)
+			@croupier.get_juego.agregarCarta(@sabot.obtener_siguiente_carta)
 		}
 	end
 

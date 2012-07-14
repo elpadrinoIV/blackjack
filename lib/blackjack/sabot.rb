@@ -4,11 +4,11 @@ class Sabot
 	def initialize cantidad_mazos
 		@cartas = Array.new
 		(1..cantidad_mazos).each { |numero_mazo|
-			@cartas += Mazo.new.getCartas
+			@cartas += Mazo.new.get_cartas
 		}
 	end
 
-	def getCartas
+	def get_cartas
 		@cartas
 	end
 
@@ -24,7 +24,7 @@ class Sabot
 	end
 
 	# devuelve las cartas que van a salir, en el orden que van a salir
-	def mirarProximasCartas cantidad_cartas
+	def mirar_proximas_cartas cantidad_cartas
 		if (cantidad_cartas > 0 && cantidad_cartas <= @cartas.size)
 			@cartas[-cantidad_cartas, cantidad_cartas].reverse
 		else
@@ -32,7 +32,7 @@ class Sabot
 		end
 	end
 
-	def obtenerSiguienteCarta
+	def obtener_siguiente_carta
 		@cartas.pop
 	end
 end

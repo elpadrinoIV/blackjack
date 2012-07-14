@@ -7,7 +7,7 @@ class MockJugador < Jugador
 		@con_cuanto_planta = 12
 	end
 
-	def pedirCarta?
+	def pedir_carta?
 		@juego.valor(1) < @con_cuanto_planta
 	end
 
@@ -15,11 +15,11 @@ class MockJugador < Jugador
 		false
 	end
 
-	def pagarSeguro?
+	def pagar_seguro?
 		false
 	end
 
-	def pagarSeguro
+	def pagar_seguro
 		@apuesta_seguro = @apuestas_juegos[0]/2
 		@dinero -= @apuesta_seguro
 	end

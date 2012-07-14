@@ -7,7 +7,7 @@ class JugadorConservador < Jugador
 		@con_cuanto_planta = con_cuanto_planta
 	end
 
-	def pedirCarta?
+	def pedir_carta?
 		@juego.valor(1) < @con_cuanto_planta
 	end
 
@@ -15,7 +15,7 @@ class JugadorConservador < Jugador
 		false
 	end
 
-	def pagarSeguro?
+	def pagar_seguro?
 		false
 	end
 

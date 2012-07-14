@@ -28,8 +28,8 @@ class JuegoPersona
 		suma = 0
 		cantidad_cartas_con_valor_especial = 0
 		@juegos[numero_juego - 1].each{ |carta|
-			suma += carta.getValor
-			if 11 == carta.getValor 
+			suma += carta.get_valor
+			if 11 == carta.get_valor
 				cantidad_cartas_con_valor_especial += 1
 			end
 		}
@@ -62,7 +62,7 @@ class JuegoPersona
 
 		if (0 == @numero_juego && 2 == @juegos[0].size)
 			juego = @juegos[0]
-			juego[0].getValor == juego[1].getValor
+			juego[0].get_valor == juego[1].get_valor
 		end
 	end
 

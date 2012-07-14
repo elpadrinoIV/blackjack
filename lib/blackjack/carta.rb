@@ -5,15 +5,15 @@ class Carta
 		@valor = valor
 	end
 
-	def getNumero
+	def get_numero
 		@numero
 	end
 
-	def getPalo
+	def get_palo
 		@palo
 	end
 
-	def getValor
+	def get_valor
 		@valor
 	end
 
