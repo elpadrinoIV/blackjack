@@ -73,4 +73,9 @@ class JuegoPersona
 	def tiene_blackjack?
 		return (1 == @juegos.size && (2 == @juegos[0].size) && 21 == self.valor(1))
 	end
+
+  def resetear
+    @juegos = [ [] ]
+		@numero_juego = 0
+  end
 end

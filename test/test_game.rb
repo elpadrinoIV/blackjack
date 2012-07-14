@@ -2,13 +2,13 @@ require File.dirname(__FILE__) + '/helper.rb'
 
 require 'croupier'
 require 'game'
-require 'jugador_conservador'
+require 'mock_jugador'
 
 class TestGame < Test::Unit::TestCase
 	def setup
 		@game = Game.new
 		(1..3).each{ |jugador|
-			@game.agregar_jugador(JugadorConservador.new(10000, 12))
+			@game.agregar_jugador(MockJugador.new(10000))
 		}
 	end
 
@@ -58,7 +58,7 @@ class TestGame < Test::Unit::TestCase
 			jugador.get_juego.get_juegos.each{ |juego|
 				assert_equal(0, juego.size, "Cuando termina la mano el jugador no debe tener mas cartas")
 			}
-
+      
 			jugador.get_apuestas.each{ |apuesta|
 				assert_equal(0, apuesta, "Cuando termina la mano no hay mas apuestas")
 			}

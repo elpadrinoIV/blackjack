@@ -72,5 +72,16 @@ class Jugador
     @dinero += @apuesta_seguro
     @apuesta_seguro = 0
   end
+
+  def entregar_cartas
+    cartas = Array.new
+    @juego.get_juegos.each{|juego|
+      juego.each{ |carta|
+        cartas << carta
+      }
+    }
+
+    @juego.resetear
+  end
   
 end

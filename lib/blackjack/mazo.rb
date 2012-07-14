@@ -9,7 +9,7 @@ class Mazo
 		@cartas = Array.new
 		NUMEROS.each { |num|
 			PALOS.each { |palo|
-				valor = 1
+				valor = self.valor_carta num
 				@cartas << Carta.new(num, palo, valor)
 			}
 		}
@@ -29,5 +29,30 @@ class Mazo
 			@cartas[carta] = temp
 		}
 	end
+
+  def valor_carta numero
+    case numero
+      when "1"
+        11
+      when "2"
+        2
+      when "3"
+        3
+      when "4"
+        4
+      when "5"
+        5
+      when "6"
+        6
+      when "7"
+        7
+      when "8"
+        8
+      when "9"
+        9
+      when "10", "J", "Q", "K"
+        10
+      end
+  end
 
 end

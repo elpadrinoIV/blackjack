@@ -30,7 +30,6 @@ class CalculadorPagoApuestas
 		cantidad_a_pagar
 	end
 
-	private
 =begin
 	juego_croupier: el juego del croupier
 	juego_jugador: el juego completo del jugador
