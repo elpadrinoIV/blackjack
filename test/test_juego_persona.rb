@@ -9,8 +9,8 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 6
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(16, juego.valor(1), "El valor del juego deberia ser 16")
 
@@ -20,10 +20,10 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 5
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 
 		assert_equal(23, juego.valor(1), "El valor del juego deberia ser 23")
 	end
@@ -33,8 +33,8 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(19, juego.valor(1), "As y 8 debe dar 19")
 
@@ -43,12 +43,12 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(19, juego.valor(1), "As y 8 debe dar 19")
 
-		juego.agregarCarta carta3
+		juego.agregar_carta carta3
 
 		assert_equal(17, juego.valor(1), "As, 8 y 8 debe dar 17")
 
@@ -56,8 +56,8 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(12, juego.valor(1), "As y as debe dar 12")
 
@@ -66,12 +66,12 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 5
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(16, juego.valor(1), "As y 5 debe dar 16")
 
-		juego.agregarCarta carta3
+		juego.agregar_carta carta3
 
 		assert_equal(17, juego.valor(1), "As, 5 y as debe dar 17")
 
@@ -80,12 +80,12 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		assert_equal(12, juego.valor(1), "As y as debe dar 21")
 
-		juego.agregarCarta carta3
+		juego.agregar_carta carta3
 
 		assert_equal(12, juego.valor(1), "As, as y 10  debe dar 12")
 
@@ -95,10 +95,10 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 
 		assert_equal(14, juego.valor(1), "As, 10 y as debe dar 14")
 	end
@@ -108,30 +108,30 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
-		assert(juego.puedeAperturar?, "Con un 8 y un 8 puede aperturar")
+		assert(juego.puede_aperturar?, "Con un 8 y un 8 puede aperturar")
 
 		# 10 y 10 puede aperturar
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
-		assert(juego.puedeAperturar?, "Con un 10 y un 10 puede aperturar")
+		assert(juego.puede_aperturar?, "Con un 10 y un 10 puede aperturar")
 
 		# as y as puede aperturar
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		# a pesar de pedir el valor, debe poder aperturar
 		juego.valor 1
-		assert(juego.puedeAperturar?, "Con un 10 y un 10 puede aperturar")
+		assert(juego.puede_aperturar?, "Con un 10 y un 10 puede aperturar")
 	end
 
 	def test_no_puede_aperturar
@@ -139,32 +139,32 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
-		assert(!juego.puedeAperturar?, "Con un 8 y un 10 no puede aperturar")
+		assert(!juego.puede_aperturar?, "Con un 8 y un 10 no puede aperturar")
 
 		# 4, 4 y 10 no puede aperturar, ya le pasó la oportunidad
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
-		juego.agregarCarta carta3
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
+		juego.agregar_carta carta3
 
-		assert(!juego.puedeAperturar?, "Con un 4, un 4 y un 10 no puede aperturar")
+		assert(!juego.puede_aperturar?, "Con un 4, un 4 y un 10 no puede aperturar")
 
 		# 10, 4 y 4 no puede aperturar
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
-		juego.agregarCarta carta3
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
+		juego.agregar_carta carta3
 
-		assert(!juego.puedeAperturar?, "Con un 10, un 4 y un 4 no puede aperturar")
+		assert(!juego.puede_aperturar?, "Con un 10, un 4 y un 4 no puede aperturar")
 	end
 
 	def test_con_apertura_no_se_pasa
@@ -172,16 +172,16 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		juego.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta3
+		juego.agregar_carta carta3
 		juego.plantar
 
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta4
+		juego.agregar_carta carta4
 		juego.plantar
 
 		valor_juego_1 = juego.valor 1
@@ -194,22 +194,22 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		juego.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 2
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 		juego.plantar
 
 		carta5 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 2
 		carta6 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 2
 		carta7 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 5
-		juego.agregarCarta carta5
-		juego.agregarCarta carta6
-		juego.agregarCarta carta7
+		juego.agregar_carta carta5
+		juego.agregar_carta carta6
+		juego.agregar_carta carta7
 		juego.plantar
 
 		valor_juego_1 = juego.valor 1
@@ -224,19 +224,19 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		juego.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 4
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 
 		carta5 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
 		carta6 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 8
-		juego.agregarCarta carta5
-		juego.agregarCarta carta6
+		juego.agregar_carta carta5
+		juego.agregar_carta carta6
 
 		valor_juego_1 = juego.valor 1
 		valor_juego_2 = juego.valor 2
@@ -249,18 +249,18 @@ class TestJuegoPersona < Test::Unit::TestCase
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
-		assert(juego.tieneBlackjack?, "10 y as es blackjack")
+		assert(juego.tiene_blackjack?, "10 y as es blackjack")
 
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
-		assert(juego.tieneBlackjack?, "as y 10 es blackjack")
+		assert(juego.tiene_blackjack?, "as y 10 es blackjack")
 	end
 
 	def test_no_tiene_blackjack
@@ -269,40 +269,40 @@ class TestJuegoPersona < Test::Unit::TestCase
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 5
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 6
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
-		juego.agregarCarta carta3
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
+		juego.agregar_carta carta3
 
-		assert(false == juego.tieneBlackjack?, "suma 21 pero no es blackjack")
+		assert(false == juego.tiene_blackjack?, "suma 21 pero no es blackjack")
 
 		# apertura pero no vale blackjack
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		juego.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 
-		assert(false == juego.tieneBlackjack?, "con apertura no se puede sacar blackjack")
+		assert(false == juego.tiene_blackjack?, "con apertura no se puede sacar blackjack")
 
 		# apertura pero no vale blackjack
 		juego = JuegoPersona.new
 		carta1 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
 		carta2 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 11
-		juego.agregarCarta carta1
-		juego.agregarCarta carta2
+		juego.agregar_carta carta1
+		juego.agregar_carta carta2
 
 		juego.aperturar
 		carta3 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
 		carta4 = Carta.new Mazo::NUMEROS.first, Mazo::PALOS.first, 10
-		juego.agregarCarta carta3
-		juego.agregarCarta carta4
+		juego.agregar_carta carta3
+		juego.agregar_carta carta4
 
-		assert(false == juego.tieneBlackjack?, "con apertura no se puede sacar blackjack")
+		assert(false == juego.tiene_blackjack?, "con apertura no se puede sacar blackjack")
 	end
 end

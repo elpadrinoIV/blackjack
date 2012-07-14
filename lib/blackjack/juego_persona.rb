@@ -8,7 +8,7 @@ class JuegoPersona
 		@numero_juego = 0
 	end
 
-	def agregarCarta carta
+	def agregar_carta carta
 		if nil == @juegos[@numero_juego]
 			@juegos[@numero_juego] = Array.new
 		end
@@ -46,15 +46,15 @@ class JuegoPersona
 	end
 
 	def aperturar
-		if self.puedeAperturar?
+		if self.puede_aperturar?
 			segunda_carta = @juegos[@numero_juego].pop
 			@numero_juego += 1
-			self.agregarCarta segunda_carta
+			self.agregar_carta segunda_carta
 			@numero_juego -= 1
 		end
 	end
 
-	def puedeAperturar?
+	def puede_aperturar?
 		# para poder aperurar:
 		#  - se puede solo en el primer juego
 		#  - debe haber solo 2 cartas
@@ -66,11 +66,11 @@ class JuegoPersona
 		end
 	end
 
-	def getJuegos
+	def get_juegos
 		@juegos
 	end
 
-	def tieneBlackjack?
+	def tiene_blackjack?
 		return (1 == @juegos.size && (2 == @juegos[0].size) && 21 == self.valor(1))
 	end
 end

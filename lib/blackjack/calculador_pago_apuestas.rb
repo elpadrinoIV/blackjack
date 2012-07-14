@@ -7,12 +7,12 @@ class CalculadorPagoApuestas
 		cantidad_a_pagar = 0
 		apuesta = jugador.get_apuestas.first
 		numero_juego = 1
-		hubo_apertura = (jugador.get_juego.getJuegos.size > 1)
-		jugador.get_juego.getJuegos.each { |juego|
+		hubo_apertura = (jugador.get_juego.get_juegos.size > 1)
+		jugador.get_juego.get_juegos.each { |juego|
 			case quien_gana?(croupier.get_juego, jugador.get_juego, numero_juego, !hubo_apertura)
 			when :jugador
 				# pago el valor de la apuesta o 1.5 si es blackjack
-				if jugador.get_juego.tieneBlackjack?
+				if jugador.get_juego.tiene_blackjack?
 					cantidad_a_pagar += apuesta*1.5
 				else
 					cantidad_a_pagar += apuesta
@@ -21,7 +21,7 @@ class CalculadorPagoApuestas
 				# no le pago nada
 			end
 
-			if croupier.get_juego.tieneBlackjack? && jugador.get_apuesta_seguro > 0
+			if croupier.get_juego.tiene_blackjack? && jugador.get_apuesta_seguro > 0
 				cantidad_a_pagar += jugador.get_apuesta_seguro*2
 			end
 
@@ -75,8 +75,8 @@ class CalculadorPagoApuestas
 				return :empatados
 			else
 				# ambos tienen 21
-				cantidad_cartas_croupier = juego_croupier.getJuegos.first.size
-				cantidad_cartas_jugador = juego_jugador.getJuegos[numero_juego - 1].size
+				cantidad_cartas_croupier = juego_croupier.get_juegos.first.size
+				cantidad_cartas_jugador = juego_jugador.get_juegos[numero_juego - 1].size
 				if (2 == cantidad_cartas_croupier)
 					# croupier tiene blackjack, solo puede empatar en caso de que el jugador tenga blackjack
 					if (2 == cantidad_cartas_jugador && vale_blackjack_jugador)

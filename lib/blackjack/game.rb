@@ -11,15 +11,15 @@ class Game
 		@jugadores = Array.new
 	end
 	
-	def agregarJugador jugador
+	def agregar_jugador jugador
 		@jugadores << jugador
 	end
 
-	def getJugadores
+	def get_jugadores
 		@jugadores
 	end
 
-	def getCroupier
+	def get_croupier
 		@croupier
 	end
 	
@@ -27,17 +27,17 @@ class Game
 		(1..2).each{ |i|
 			@jugadores.each{ |jugador|
 				if jugador.get_apuestas.first > 0
-					jugador.get_juego.agregarCarta(@sabot.obtener_siguiente_carta)
+					jugador.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
 				end
 			}
-			@croupier.get_juego.agregarCarta(@sabot.obtener_siguiente_carta)
+			@croupier.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
 		}
 	end
 
-	def finMano
+	def fin_mano
 	end
 
-  def getSabot
+  def get_sabot
     @sabot
   end
   
