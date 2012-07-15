@@ -53,13 +53,10 @@ class Game
             when :jugador
               jugador.cobrar_apuesta(cantidad_a_pagar)
               jugador.guardar_dinero_apuesta(numero_juego)
-              puts "jugador gano"
             when :empatados
               jugador.guardar_dinero_apuesta(numero_juego)
-              puts "empatados"
             when :croupier
               jugador.entregar_dinero_apuesta(numero_juego)
-              puts "pierde"
             end
 
             if @croupier.get_juego.tiene_blackjack?
