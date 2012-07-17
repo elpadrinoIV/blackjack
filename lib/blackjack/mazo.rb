@@ -20,6 +20,9 @@ class Mazo
 	end
 
 	def mezclar
+    @cartas.shuffle!
+  
+=begin
 		cantidad_cartas = @cartas.size
 		(1..cantidad_cartas).each { |carta|
 			carta -= 1
@@ -28,6 +31,7 @@ class Mazo
 			@cartas[numero_random] = @cartas[carta]
 			@cartas[carta] = temp
 		}
+=end
 	end
 
   def valor_carta numero

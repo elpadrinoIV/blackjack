@@ -15,6 +15,9 @@ class Jugador
 	end
 
 	def pedir_carta?
+    if @juego.sigue_en_juego?
+      super
+    end
 	end
 
 	def apostar
@@ -82,6 +85,9 @@ class Jugador
     }
 
     @juego.resetear
+    @sigue_jugando = false
+
+    cartas
   end
   
 end

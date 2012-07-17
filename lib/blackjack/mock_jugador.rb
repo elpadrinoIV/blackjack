@@ -5,16 +5,21 @@ class MockJugador < Jugador
   attr_accessor :dinero_apuesta
 	def initialize dinero
 		super(dinero)
-		@con_cuanto_planta = 12
+		@con_cuanto_planta = 17
     @dinero_apuesta = 50
 	end
 
 	def pedir_carta?
-		@juego.valor(1) < @con_cuanto_planta
+		if (@juego.valor(@juego.get_numero_juego) < @con_cuanto_planta)
+      true
+    else
+      @juego.plantar
+      false
+    end
 	end
 
 	def aperturar?
-		false
+    @juego.puede_aperturar?
 	end
 
 	def pagar_seguro?

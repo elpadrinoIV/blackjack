@@ -47,27 +47,27 @@ class Game
           # para cada juego...
           jugador.get_juego.get_juegos.each{ |juego|
             cantidad_a_pagar = calculador_pago_apuestas.calcular_pago_a_jugador(@croupier, jugador)
+            dinero_entregado_por_jugador = 0
 
             quien_gano = calculador_pago_apuestas.quien_gana?(@croupier.get_juego, jugador.get_juego, numero_juego, !hubo_apertura)
             case quien_gano
             when :jugador
               jugador.cobrar_apuesta(cantidad_a_pagar)
               jugador.guardar_dinero_apuesta(numero_juego)
-              puts "jugador gano"
             when :empatados
               jugador.guardar_dinero_apuesta(numero_juego)
-              puts "empatados"
             when :croupier
-              jugador.entregar_dinero_apuesta(numero_juego)
-              puts "pierde"
+              dinero_entregado_por_jugador += jugador.entregar_dinero_apuesta(numero_juego)
             end
 
             if @croupier.get_juego.tiene_blackjack?
               jugador.guardar_dinero_apuesta_seguro
             else
-              jugador.entregar_dinero_apuesta_seguro
+              dinero_entregado_por_jugador += jugador.entregar_dinero_apuesta_seguro
             end
-          
+
+            @croupier.cobrar_dinero_jugadores(dinero_entregado_por_jugador)
+            @croupier.entregar_dinero_para_pagar(cantidad_a_pagar)
             numero_juego += 1
           }
 					cartas << jugador.entregar_cartas
@@ -79,6 +79,54 @@ class Game
   def get_sabot
     @sabot
   end
-  
+
+  def reemplazar_cartas_con_estas cartas
+    @sabot.get_cartas.clear
+    cartas.each{ |carta|
+      @sabot.get_cartas.push(carta)
+    }
+    
+  end
+
+  def jugar_mano
+    @jugadores.each { |jugador|
+			jugador.apostar
+		}
+
+		self.repartir
+
+    @jugadores.each{ |jugador|
+      if jugador.aperturar?
+        jugador.aperturar
+      end
+      
+      while jugador.pedir_carta?
+        jugador.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+      end
+    }
+
+    while @croupier.pedir_carta?
+      @croupier.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+    end
+
+    self.temp_print_juegos
+    
+		self.fin_mano
+  end
+
+  def temp_print_juegos
+    puts "Croupier: #{@croupier.get_juego.valor(1)}"
+    nro_jugador = 1
+    @jugadores.each{ |jugador|
+      nro_juego = 1
+      jugador.get_juego.get_juegos.each{ |juego|
+        puts "Jugador #{nro_jugador} (juego #{nro_juego}): #{jugador.get_juego.valor(nro_juego)}"
+        nro_juego += 1
+      }
+      
+      nro_jugador += 1
+    }
+    puts "----------"
+  end
 end
 
