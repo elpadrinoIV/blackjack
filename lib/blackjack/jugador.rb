@@ -15,10 +15,12 @@ class Jugador
 	end
 
 	def pedir_carta?
-    if @juego.sigue_en_juego?
-      super
-    end
+    @juego.sigue_en_juego?  
 	end
+
+  def agregar_carta
+    @juego.agregar_carta(carta)
+  end
 
 	def apostar
 	end
@@ -27,6 +29,9 @@ class Jugador
 	end
 
 	def aperturar
+    @juego.aperturar
+    @apuestas_juegos[1] = @apuestas_juegos[0]
+    @dinero -= @apuestas_juegos[1]
 	end
 
 	def duplicar

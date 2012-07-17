@@ -10,14 +10,17 @@ class MockJugador < Jugador
 	end
 
 	def pedir_carta?
+    if !super
+      return false
+    end
 		if (@juego.valor(@juego.get_numero_juego) < @con_cuanto_planta)
       true
     else
       @juego.plantar
-      false
+      @juego.sigue_en_juego?
     end
 	end
-
+  
 	def aperturar?
     @juego.puede_aperturar?
 	end
@@ -31,12 +34,6 @@ class MockJugador < Jugador
 		@dinero -= @apuesta_seguro
 	end
 
-  def aperturar
-    @juego.aperturar
-    @apuestas_juegos[1] = @apuestas_juegos[0]
-    @dinero -= @apuestas_juegos[1]
-  end
-
   def duplicar
     apuesta = @apuestas_juegos[0]
     @apuestas_juegos[0] *= 2
@@ -47,5 +44,5 @@ class MockJugador < Jugador
     @apuestas_juegos[0] = @dinero_apuesta
     @dinero -= @dinero_apuesta
   end
-
+  
 end

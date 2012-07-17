@@ -6,16 +6,19 @@ class JuegoPersona
 		# Arranco inicializando el primer juego con un array de cartas vacío
 		@juegos = [ [] ]
 		@numero_juego = 0
-    @sigue_en_juego = false
+    @sigue_en_juego = true
 	end
 
 	def agregar_carta carta
+    if !@sigue_en_juego
+      return
+    end
+
 		if nil == @juegos[@numero_juego]
 			@juegos[@numero_juego] = Array.new
-      @sigue_en_juego = true
 		end
 
-		if (self.valor(@numero_juego + 1) <= 21)
+		if (self.valor(@numero_juego + 1) < 21)
 			@juegos[@numero_juego] << carta
 		end
 
@@ -87,11 +90,11 @@ class JuegoPersona
   def resetear
     @juegos = [ [] ]
 		@numero_juego = 0
-    @sigue_en_juego = false
+    @sigue_en_juego = true
   end
 
   def get_numero_juego
-    @numero_juego
+    @numero_juego + 1
   end
 
   def sigue_en_juego?
