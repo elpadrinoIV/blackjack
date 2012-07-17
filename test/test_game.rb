@@ -7,8 +7,9 @@ require 'mock_jugador'
 class TestGame < Test::Unit::TestCase
 	def setup
 		@game = Game.new
+    @dinero_inicial_jugadores = 10000
 		(1..3).each{ |jugador|
-			@game.agregar_jugador(MockJugador.new(10000))
+			@game.agregar_jugador(MockJugador.new(@dinero_inicial_jugadores))
 		}
 	end
 
@@ -70,4 +71,136 @@ class TestGame < Test::Unit::TestCase
 			assert_equal(0, juego.size, "Cuando termina la mano el croupier no debe tener mas cartas")
 		}
 	end
+
+  def test_mano_completa_normal
+		# 4 jugadores, la banca se pasa, 3 jugadores no se pasan, 1 se pasa (ganan 3)
+    # las cartas que se reparten son:
+    #
+    #         (16)
+    #          6
+    #         10
+    #
+    #  (15)  (19) (11)  (19)
+    #   8      9   9    10
+    #   7     10   2     9
+    #
+    # Al finalizar queda:
+    #
+    #         (23)
+    #           6
+    #          10
+    #           7
+    #
+    #  (19)  (19) (23)  (19)
+    #   8      9   9    10
+    #   7     10   2    9
+    #   4          4
+    #              8
+
+    valores_cartas = [10, 9, 9, 8, 6,
+                      9, 2, 10, 7, 10,
+                      4, 8,
+                      4,
+                      7]
+
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.agregar_jugador(MockJugador.new(10000))
+    
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    @game.jugar_mano
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      if (2 != nro_jugador)
+        assert_equal(@dinero_inicial_jugadores + 50, jugador.get_dinero, "El jugador #{nro_jugador} deberia haber ganado plata por ganar la mano")
+      else
+        assert_equal(@dinero_inicial_jugadores - 50, jugador.get_dinero, "El jugador #{nro_jugador} no deberia haber ganado plata por haber perdido la mano")
+      end
+      
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier -100, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 3 y cobrado a 1")
+	end
+
+  def test_mano_con_aperturas_normales
+		# Aperturan todos
+    # Jugador 1:  gana 1 pierde 1 (0)
+    # Jugador 2: pierde ambos (-100)
+    # Jugador 3: gana ambos (+100)
+    # Jugador 4: gana 1 empata 1 (+50)
+    # las cartas que se reparten son:
+    #
+    #          6
+    #         10
+    #
+    #   8      9   9    10
+    #   8      9   9    10
+    #
+    # Al finalizar queda:
+    #
+    #         (18)
+    #           6
+    #          10
+    #           2
+    #
+    #  (19)(18)  (19)(19)  (24)(23)  (20)(17)
+    #   8    8     9   9     9   9    10  10
+    #   A   10    10  10     6   6    10   7
+    #                        9   8
+    #
+    valores_cartas = [10, 9, 9, 8, 6,
+                      10, 9, 9, 8, 10,
+                      10,
+                      7,
+                      6, 9,
+                      6, 8,
+                      10,
+                      10,
+                      11,
+                      10]
+    
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.agregar_jugador(MockJugador.new(10000))
+
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    @game.jugar_mano
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      case nro_jugador
+      when 1
+        assert_equal(@dinero_inicial_jugadores, jugador.get_dinero, "El jugador #{nro_jugador} gana 1 y pierde 1, queda en 0")
+      when 2
+        assert_equal(@dinero_inicial_jugadores - 100, jugador.get_dinero, "El jugador #{nro_jugador} pierde ambos, -100")
+      when 3
+        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} gana ambos, +100")
+      when 4
+        assert_equal(@dinero_inicial_jugadores, jugador.get_dinero, "El jugador #{nro_jugador} gana 1 y empata 1, +50")
+      end
+      
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier - 50, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 4 y cobrado a 3")
+	end
+
 end

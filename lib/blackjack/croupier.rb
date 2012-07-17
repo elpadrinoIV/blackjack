@@ -13,4 +13,12 @@ class Croupier < Jugador
 	def aperturar?
 		false
 	end
+
+  def cobrar_dinero_jugadores dinero
+    @dinero += dinero
+  end
+
+  def entregar_dinero_para_pagar dinero
+    @dinero -= dinero
+  end
 end

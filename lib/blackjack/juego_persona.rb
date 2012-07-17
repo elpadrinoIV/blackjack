@@ -6,21 +6,27 @@ class JuegoPersona
 		# Arranco inicializando el primer juego con un array de cartas vacío
 		@juegos = [ [] ]
 		@numero_juego = 0
+    @sigue_en_juego = false
 	end
 
 	def agregar_carta carta
 		if nil == @juegos[@numero_juego]
 			@juegos[@numero_juego] = Array.new
+      @sigue_en_juego = true
 		end
 
-		if (self.valor(@numero_juego + 1) < 21)
+		if (self.valor(@numero_juego + 1) <= 21)
 			@juegos[@numero_juego] << carta
 		end
 
 		# si al agregar la carta se pasa o da 21, si tiene otro juego pasa automáticamente al otro juego,
 		# sino, se queda ahi
-		if (self.valor(@numero_juego + 1) >= 21 && nil != @juegos[@numero_juego + 1])
-			@numero_juego += 1
+		if (self.valor(@numero_juego + 1) >= 21)
+        if (nil != @juegos[@numero_juego + 1])
+          @numero_juego += 1
+        else
+          @sigue_en_juego = false
+        end
 		end
 	end
 
@@ -42,7 +48,11 @@ class JuegoPersona
 	end
 
 	def plantar
-		@numero_juego += 1
+    if (nil != @juegos[@numero_juego + 1])
+      @numero_juego += 1
+    else
+      @sigue_en_juego = false
+    end
 	end
 
 	def aperturar
@@ -77,5 +87,14 @@ class JuegoPersona
   def resetear
     @juegos = [ [] ]
 		@numero_juego = 0
+    @sigue_en_juego = false
+  end
+
+  def get_numero_juego
+    @numero_juego
+  end
+
+  def sigue_en_juego?
+    @sigue_en_juego
   end
 end
