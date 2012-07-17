@@ -279,14 +279,14 @@ class TestGame < Test::Unit::TestCase
 
     assert_equal(dinero_inicial_croupier + 100, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 3 y cobrado a 5")
 	end
-=begin
+
   def test_mano_con_aperturas_pseudo_blackjack_croupier_con_21
     # Parecido a test_mano_con_aperturas_pseudo_blackjack_croupier_sin_blackjack en donde el croupier empata con los que sacan 21 (no es blackjack)
 		# Aperturas con 2 aces y con 2 diez
-    # Jugador 1:  apertura con 2 aces, dps saca un 10 y un 2 (no puede seguir pidiendo) (0)
-    # Jugador 2: apertura con 2 dieces, dps saca as y (4, 5) (+100)
+    # Jugador 1:  apertura con 2 aces, dps saca un 10 y un 2 (no puede seguir pidiendo) (-50)
+    # Jugador 2: apertura con 2 dieces, dps saca as y (4, 5) (-50)
     # Jugador 3: apertura con 2 aces, dps as y as (no puede seguir pidiendo(-100)
-    # Jugador 4: apertura con 2 dieces, se pasa en ambas (-100)
+    # Jugador 4: apertura con 2 dieces, se pasa en ambas (0)
     # las cartas que se reparten son:
     #
     #        (16)
@@ -306,8 +306,8 @@ class TestGame < Test::Unit::TestCase
     #
     #  (23)(24)  (12)(12)  (21)(19)  (21)(13)
     #   10  10     A   A    10  10     A   A
-    #    4   5     A   A     A   4    10   2
-    #    9   9                   5
+    #    A   A     A   A     A   4    10   2
+    #                            5
     #
     valores_cartas = [11, 10, 11, 10, 6,
                       11, 10, 11, 10, 10,
@@ -317,8 +317,8 @@ class TestGame < Test::Unit::TestCase
                       4, 5,
                       11,
                       11,
-                      4, 9,
-                      5, 9,
+                      11,
+                      11,
                       5
                       ]
 
@@ -341,19 +341,19 @@ class TestGame < Test::Unit::TestCase
 		@game.get_jugadores.each{|jugador|
       case nro_jugador
       when 1
-        assert_equal(@dinero_inicial_jugadores, jugador.get_dinero, "El jugador #{nro_jugador} gana 1 y pierde 1, queda en 0 (no vale blackjack en apertura)")
+        assert_equal(@dinero_inicial_jugadores -50, jugador.get_dinero, "El jugador #{nro_jugador} empata 1 y pierde 1, -50 (no vale blackjack en apertura)")
       when 2
-        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} gana ambos, +100 (no vale blackjack en apertura)")
+        assert_equal(@dinero_inicial_jugadores -50, jugador.get_dinero, "El jugador #{nro_jugador} empata 1 y pierde 1, -50 (no vale blackjack en apertura)")
       when 3
         assert_equal(@dinero_inicial_jugadores -100, jugador.get_dinero, "El jugador #{nro_jugador} pierde ambos, -100 (no vale blackjack en apertura)")
       when 4
-        assert_equal(@dinero_inicial_jugadores - 100, jugador.get_dinero, "El jugador #{nro_jugador} pierde ambos, -100 (no vale blackjack en apertura)")
+        assert_equal(@dinero_inicial_jugadores, jugador.get_dinero, "El jugador #{nro_jugador} empata ambos, queda en 0 (no vale blackjack en apertura)")
       end
 
       nro_jugador += 1
     }
 
-    assert_equal(dinero_inicial_croupier + 100, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 3 y cobrado a 5")
+    assert_equal(dinero_inicial_croupier + 200, @game.get_croupier.get_dinero, "El croupier deberia haber cobrado a 6")
 	end
-=end
+
 end
