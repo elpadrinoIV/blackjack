@@ -18,7 +18,7 @@ class Jugador
     @juego.sigue_en_juego?  
 	end
 
-  def agregar_carta
+  def agregar_carta carta
     @juego.agregar_carta(carta)
   end
 

@@ -22,6 +22,17 @@ class JuegoPersona
 			@juegos[@numero_juego] << carta
 		end
 
+    # si apertura con 2 aces, solo puede poner una carta en cada juego
+    if 2 == @juegos.size
+      if 2 == @juegos[@numero_juego].size && 11 == @juegos[@numero_juego][0].get_valor
+        if (nil != @juegos[@numero_juego + 1])
+          @numero_juego += 1
+        else
+          @sigue_en_juego = false
+        end
+      end
+    end
+
 		# si al agregar la carta se pasa o da 21, si tiene otro juego pasa automáticamente al otro juego,
 		# sino, se queda ahi
 		if (self.valor(@numero_juego + 1) >= 21)
@@ -31,6 +42,7 @@ class JuegoPersona
           @sigue_en_juego = false
         end
 		end
+
 	end
 
 	def valor numero_juego

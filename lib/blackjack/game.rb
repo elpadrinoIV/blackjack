@@ -28,10 +28,10 @@ class Game
 		(1..2).each{ |i|
 			@jugadores.each{ |jugador|
 				if jugador.get_apuestas.first > 0
-					jugador.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+					jugador.agregar_carta(@sabot.obtener_siguiente_carta)
 				end
 			}
-			@croupier.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+			@croupier.agregar_carta(@sabot.obtener_siguiente_carta)
 		}
 	end
 
@@ -101,12 +101,12 @@ class Game
       end
       
       while jugador.pedir_carta?
-        jugador.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+        jugador.agregar_carta(@sabot.obtener_siguiente_carta)
       end
     }
 
     while @croupier.pedir_carta?
-      @croupier.get_juego.agregar_carta(@sabot.obtener_siguiente_carta)
+      @croupier.agregar_carta(@sabot.obtener_siguiente_carta)
     end
 
     self.temp_print_juegos
