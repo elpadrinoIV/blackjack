@@ -286,7 +286,7 @@ class TestGame < Test::Unit::TestCase
     # Jugador 1:  apertura con 2 aces, dps saca un 10 y un 2 (no puede seguir pidiendo) (-50)
     # Jugador 2: apertura con 2 dieces, dps saca as y (4, 5) (-50)
     # Jugador 3: apertura con 2 aces, dps as y as (no puede seguir pidiendo(-100)
-    # Jugador 4: apertura con 2 dieces, se pasa en ambas (0)
+    # Jugador 4: apertura con 2 dieces, 21 en ambas (0)
     # las cartas que se reparten son:
     #
     #        (16)
@@ -354,6 +354,71 @@ class TestGame < Test::Unit::TestCase
     }
 
     assert_equal(dinero_inicial_croupier + 200, @game.get_croupier.get_dinero, "El croupier deberia haber cobrado a 6")
+	end
+
+  def test_mano_con_aperturas_pseudo_blackjack_croupier_con_blackjack
+    # Parecido a test_mano_con_aperturas_pseudo_blackjack_croupier_con_21 pero ahora el croupier saca blackjack
+		# Aperturas con 2 aces y con 2 diez
+    # Jugador 1:  apertura con 2 aces, dps saca un 10 y un 2 (no puede seguir pidiendo) (-100)
+    # Jugador 2: apertura con 2 dieces, dps saca as y (4, 5) (-100)
+    # Jugador 3: apertura con 2 aces, dps as y as (no puede seguir pidiendo(-100)
+    # Jugador 4: apertura con 2 dieces, se pasa en ambas (-100)
+    # las cartas que se reparten son:
+    #
+    #        (21)
+    #         10
+    #          A
+    #
+    #  (20)   (12)   (20)   (12)
+    #   10      A     10      A
+    #   10      A     10      A
+    #
+    # Al finalizar queda:
+    #
+    #         (21)
+    #          10
+    #           A
+    #
+    #  (23)(24)  (12)(12)  (21)(19)  (21)(13)
+    #   10  10     A   A    10  10     A   A
+    #    A   A     A   A     A   4    10   2
+    #                            5
+    #
+    valores_cartas = [11, 10, 11, 10, 10,
+                      11, 10, 11, 10, 11,
+                      10,
+                      2,
+                      11,
+                      4, 5,
+                      11,
+                      11,
+                      11,
+                      11
+                      ]
+
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.agregar_jugador(MockJugador.new(10000))
+
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    @game.jugar_mano
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      assert_equal(@dinero_inicial_jugadores -100, jugador.get_dinero, "El jugador #{nro_jugador} pierde, -100 (no vale blackjack en apertura)")
+      
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier + 400, @game.get_croupier.get_dinero, "El croupier deberia haber cobrado a 8 (gano con blackjack a todos)")
 	end
 
 end
