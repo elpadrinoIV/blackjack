@@ -94,7 +94,7 @@ class Game
 		}
 
 		self.repartir
-    self.temp_print_juegos
+    # self.temp_print_juegos
     @jugadores.each{ |jugador|
       if jugador.aperturar?
         jugador.aperturar
@@ -111,7 +111,7 @@ class Game
       @croupier.agregar_carta(@sabot.obtener_siguiente_carta)
     end
 
-    self.temp_print_juegos
+    # self.temp_print_juegos
     
 		self.fin_mano
   end

@@ -539,4 +539,77 @@ class TestGame < Test::Unit::TestCase
 
     assert_equal(dinero_inicial_croupier - 25, @game.get_croupier.get_dinero, "El croupier termina perdiendo")
   end
+
+  def test_varias_manos_con_aperturas_y_duplicaciones
+    # ronda de varias manos con aperturas, duplicando
+    #
+    #       Mano 1             Mano 2                Mano 3
+    # C:    10 8 (18)  -175   10 A (21)   +300    8 8 2 (18) +150       +275
+    #
+    # J1:   10 A (21)   +50   9 A (20)    -50     9 2 4 (15) -100       -100
+    #       10 A (21)   +50   9 9 (18)    -50
+    # J2:   6 5 9(20)   +100  10 A (21)    0      A 8 (19)   +50        +100
+    #                                             A 3 (14)   -50
+    # J3:   8 8 10 (26) -50   4 7 10 (21) -100    A 4 10 5 (20) +50     -150
+    #       8 6 10 (24) -50
+    # J4:   10 A (21)   +75   10 A (21)   -50     10 5 9 (24) -50       -125
+    #                         10 A (21)   -50     10 5 2 (17) -50
+
+    valores_cartas = [#primer ronda
+                      10, 6, 8, 10, 10,
+                      10, 5, 8, 11, 8,
+                      11, 11, # apertura J1
+                      9, # duplica J2
+                      8, 10, 6, 10, # apertura J3
+
+                      # segunda ronda
+                      9, 10, 4, 10, 10,
+                      9, 11, 7, 10, 11,
+                      11, 9, # apertura J1
+                      10, # duplica J3
+                      11, 11, # apertura J4
+
+                      # tercera ronda
+                      9, 11, 11, 10, 8,
+                      2, 11, 4, 10 , 8,
+                      4, # duplica J1
+                      8, 3, # apertura J2
+                      10, 5, # juego J3
+                      5, 9, 5, 2, #apertura J4
+                      2 # croupier
+                      ]
+
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    (1..3).each{ |nro_ronda|
+      @game.jugar_mano
+    }
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      case nro_jugador
+      when 1
+        assert_equal(@dinero_inicial_jugadores - 100, jugador.get_dinero, "El jugador #{nro_jugador} termina perdiendo")
+      when 2
+        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} termina ganando")
+      when 3
+        assert_equal(@dinero_inicial_jugadores - 150, jugador.get_dinero, "El jugador #{nro_jugador} termina perdiendo")
+      when 4
+        assert_equal(@dinero_inicial_jugadores - 125, jugador.get_dinero, "El jugador #{nro_jugador} termina perdiendo")
+      end
+
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier +275, @game.get_croupier.get_dinero, "El croupier termina ganando")
+  end
 end
