@@ -98,8 +98,10 @@ class Game
     @jugadores.each{ |jugador|
       if jugador.aperturar?
         jugador.aperturar
+      elsif jugador.duplicar?
+        jugador.duplicar
       end
-      
+
       while jugador.pedir_carta?
         jugador.agregar_carta(@sabot.obtener_siguiente_carta)
       end

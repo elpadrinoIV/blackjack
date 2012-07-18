@@ -25,6 +25,10 @@ class MockJugador < Jugador
     @juego.puede_aperturar?
 	end
 
+  def duplicar?
+    @juego.puede_duplicar?
+  end
+
 	def pagar_seguro?
 		false
 	end
@@ -33,12 +37,6 @@ class MockJugador < Jugador
 		@apuesta_seguro = @apuestas_juegos[0]/2
 		@dinero -= @apuesta_seguro
 	end
-
-  def duplicar
-    apuesta = @apuestas_juegos[0]
-    @apuestas_juegos[0] *= 2
-    @dinero -= apuesta
-  end
 
   def apostar
     @apuestas_juegos[0] = @dinero_apuesta

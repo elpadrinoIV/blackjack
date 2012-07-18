@@ -80,9 +80,9 @@ class TestGame < Test::Unit::TestCase
     #          6
     #         10
     #
-    #  (15)  (19) (11)  (19)
+    #  (15)  (19) (12)  (19)
     #   8      9   9    10
-    #   7     10   2     9
+    #   7     10   3     9
     #
     # Al finalizar queda:
     #
@@ -91,14 +91,14 @@ class TestGame < Test::Unit::TestCase
     #          10
     #           7
     #
-    #  (19)  (19) (23)  (19)
+    #  (19)  (19) (24)  (19)
     #   8      9   9    10
-    #   7     10   2    9
+    #   7     10   3    9
     #   4          4
     #              8
 
     valores_cartas = [10, 9, 9, 8, 6,
-                      9, 2, 10, 7, 10,
+                      9, 3, 10, 7, 10,
                       4, 8,
                       4,
                       7]
@@ -419,6 +419,78 @@ class TestGame < Test::Unit::TestCase
     }
 
     assert_equal(dinero_inicial_croupier + 400, @game.get_croupier.get_dinero, "El croupier deberia haber cobrado a 8 (gano con blackjack a todos)")
+	end
+
+  def test_mano_duplicando
+		# duplicando con 10 y con 11
+    # Jugador 1: duplica con 11, dps saca un 10 (+100)
+    # Jugador 2: duplica con 11, dps saca un 4  (-100)
+    # Jugador 3: duplica con 10, dps saca un as (+100)
+    # Jugador 4: duplica con 11, dps saca un as (-100)
+    # las cartas que se reparten son:
+    #
+    #        (16)
+    #          6
+    #         10
+    #
+    #  (11)   (10)   (11)   (11)
+    #    7      4      5      5
+    #    4      6      6      6
+    #
+    # Al finalizar queda:
+    #
+    #         (18)
+    #           6
+    #          10
+    #           2
+    #
+    #  (12)   (21)   (15)   (21)
+    #    7      4      5      5
+    #    4      6      6      6
+    #    A      A      4     10
+    #
+    #
+    valores_cartas = [5, 5, 4, 7, 6,
+                      6, 6, 6, 4, 10,
+                      10,
+                      4,
+                      11,
+                      11,
+                      2
+                      ]
+
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.agregar_jugador(MockJugador.new(10000))
+
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    @game.jugar_mano
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      case nro_jugador
+      when 1
+        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} duplica y gana")
+      when 2
+        assert_equal(@dinero_inicial_jugadores - 100, jugador.get_dinero, "El jugador #{nro_jugador} duplica y pierde")
+      when 3
+        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} duplica y gana")
+      when 4
+        assert_equal(@dinero_inicial_jugadores - 100, jugador.get_dinero, "El jugador #{nro_jugador} duplica y pierde")
+      end
+
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 2 y cobrado a 2")
 	end
 
 end

@@ -7,6 +7,7 @@ class JuegoPersona
 		@juegos = [ [] ]
 		@numero_juego = 0
     @sigue_en_juego = true
+    @duplico = false
 	end
 
 	def agregar_carta carta
@@ -31,6 +32,11 @@ class JuegoPersona
           @sigue_en_juego = false
         end
       end
+    end
+
+    # si duplicó, solo puede tener una carta
+    if @duplico
+      @sigue_en_juego = false
     end
 
 		# si al agregar la carta se pasa o da 21, si tiene otro juego pasa automáticamente al otro juego,
@@ -79,6 +85,10 @@ class JuegoPersona
 		end
 	end
 
+  def duplicar
+    @duplico = true
+  end
+
 	def puede_aperturar?
 		# para poder aperurar:
 		#  - se puede solo en el primer juego
@@ -88,6 +98,18 @@ class JuegoPersona
 		if (0 == @numero_juego && 2 == @juegos[0].size)
 			juego = @juegos[0]
 			juego[0].get_valor == juego[1].get_valor
+		end
+	end
+
+  def puede_duplicar?
+		# para poder aperurar:
+		#  - se puede solo en el primer juego
+		#  - debe haber solo 2 cartas
+		#  - el valor de las 2 cartas debe sumar 10 u 11
+
+		if (0 == @numero_juego && 2 == @juegos[0].size)
+			suma = self.valor(1)
+			10 == suma || 11 == suma
 		end
 	end
 
@@ -103,6 +125,7 @@ class JuegoPersona
     @juegos = [ [] ]
 		@numero_juego = 0
     @sigue_en_juego = true
+    @duplico = false
   end
 
   def get_numero_juego

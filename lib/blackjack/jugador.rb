@@ -6,6 +6,7 @@ class Jugador
 		@juego = JuegoPersona.new
 		@apuestas_juegos = [0]
 		@apuesta_seguro = 0
+    @duplico = false
 	end
 
 	def aperturar?
@@ -35,6 +36,10 @@ class Jugador
 	end
 
 	def duplicar
+    @juego.duplicar
+    apuesta = @apuestas_juegos[0]
+    @apuestas_juegos[0] *= 2
+    @dinero -= apuesta
 	end
 
 	def get_juego
