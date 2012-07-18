@@ -10,6 +10,7 @@ class Game
 		@sabot = Sabot.new 8
 		@sabot.mezclar
 		@jugadores = Array.new
+    @cantidad_cartas_para_corte = 0
 	end
 	
 	def agregar_jugador jugador
@@ -114,6 +115,31 @@ class Game
     # self.temp_print_juegos
     
 		self.fin_mano
+  end
+
+  def jugar_manos cantidad_manos
+    (1..cantidad_manos).each{ |nro_mano|
+      if self.se_puede_jugar_otra_mano?
+        self.jugar_mano
+      else
+        break
+      end
+    }
+  end
+
+  # juega hasta que se llega al límite de cartas
+  def jugar_ronda
+    while self.se_puede_jugar_otra_mano?
+      self.jugar_mano
+    end
+  end
+
+  def se_puede_jugar_otra_mano?
+    return @sabot.get_cartas.size > @cantidad_cartas_para_corte
+  end
+
+  def set_cantidad_cartas_para_corte cantidad_cartas
+    @cantidad_cartas_para_corte = cantidad_cartas
   end
 
   def temp_print_juegos

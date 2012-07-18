@@ -517,9 +517,7 @@ class TestGame < Test::Unit::TestCase
 
     @game.reemplazar_cartas_con_estas(cartas)
 
-    (1..3).each{ |nro_ronda|
-      @game.jugar_mano
-    }
+    @game.jugar_manos 3
 
     nro_jugador = 1
 		@game.get_jugadores.each{|jugador|
@@ -590,9 +588,7 @@ class TestGame < Test::Unit::TestCase
 
     @game.reemplazar_cartas_con_estas(cartas)
 
-    (1..3).each{ |nro_ronda|
-      @game.jugar_mano
-    }
+    @game.jugar_manos 3
 
     nro_jugador = 1
 		@game.get_jugadores.each{|jugador|
@@ -611,5 +607,13 @@ class TestGame < Test::Unit::TestCase
     }
 
     assert_equal(dinero_inicial_croupier +275, @game.get_croupier.get_dinero, "El croupier termina ganando")
+  end
+
+  def test_no_se_pueden_jugar_infinitas_manos
+    # cuando pasa el corte no se puede seguir jugando
+    @game.set_cantidad_cartas_para_corte(25)
+    assert_nothing_raised do
+      @game.jugar_manos 100000
+    end
   end
 end
