@@ -8,7 +8,7 @@ class TestGame < Test::Unit::TestCase
 	def setup
 		@game = Game.new
     @dinero_inicial_jugadores = 10000
-		(1..3).each{ |jugador|
+		(1..4).each{ |jugador|
 			@game.agregar_jugador(MockJugador.new(@dinero_inicial_jugadores))
 		}
 	end
@@ -112,8 +112,6 @@ class TestGame < Test::Unit::TestCase
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
 
-    @game.agregar_jugador(MockJugador.new(10000))
-    
     @game.reemplazar_cartas_con_estas(cartas)
 
     @game.jugar_mano
@@ -179,8 +177,6 @@ class TestGame < Test::Unit::TestCase
     }
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
-
-    @game.agregar_jugador(MockJugador.new(10000))
 
     @game.reemplazar_cartas_con_estas(cartas)
 
@@ -254,8 +250,6 @@ class TestGame < Test::Unit::TestCase
     }
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
-
-    @game.agregar_jugador(MockJugador.new(10000))
 
     @game.reemplazar_cartas_con_estas(cartas)
 
@@ -331,8 +325,6 @@ class TestGame < Test::Unit::TestCase
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
 
-    @game.agregar_jugador(MockJugador.new(10000))
-
     @game.reemplazar_cartas_con_estas(cartas)
 
     @game.jugar_mano
@@ -404,9 +396,7 @@ class TestGame < Test::Unit::TestCase
     }
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
-
-    @game.agregar_jugador(MockJugador.new(10000))
-
+    
     @game.reemplazar_cartas_con_estas(cartas)
 
     @game.jugar_mano
@@ -468,8 +458,6 @@ class TestGame < Test::Unit::TestCase
 
     dinero_inicial_croupier = @game.get_croupier.get_dinero
 
-    @game.agregar_jugador(MockJugador.new(10000))
-
     @game.reemplazar_cartas_con_estas(cartas)
 
     @game.jugar_mano
@@ -493,4 +481,62 @@ class TestGame < Test::Unit::TestCase
     assert_equal(dinero_inicial_croupier, @game.get_croupier.get_dinero, "El croupier deberia haber pagado a 2 y cobrado a 2")
 	end
 
+  def test_varias_manos_normal
+    # ronda de 3 manos sin aperturas, ni duplicar, ni seguro, ni nada
+    #
+    #       Mano 1             Mano 2                Mano 3
+    # C:    10 10 (20)  +50   10 5 9 (24)  -100   10 3 8 (21)  25         -25
+    #
+    # J1:   10 4 8 (22) -50   10 3 10 (23) -50    10 4 10 (24) -50        -150
+    # J2:   10 4 5 (19) -50   10 6  4 (20) +50    10 A (21) +75           +75
+    # J3:   10 3 8 (21) +50   10 9 (19)    +50    10 4 7 (21) 0           +100
+    # J4:   10 2 8 (20)   0   4 5  A (20)  +50    10 4 4 (18) -50         0
+
+    valores_cartas = [#primer ronda
+                      10, 10, 10, 10, 10,
+                      4, 4, 3, 2, 10,
+                      8, 5, 8, 8,
+                      # segunda ronda
+                      10, 10, 10, 4, 10,
+                      3, 6, 9, 5, 5,
+                      10, 4, 11, 9,
+                      # tercera ronda
+                      10, 10, 10, 10, 10,
+                      4, 11, 4, 4, 3,
+                      10, 7, 4, 8
+                      ]
+
+    valores_cartas.reverse!
+
+    cartas = Array.new
+    valores_cartas.each{ |valor_carta|
+      cartas << Carta.new(Mazo::NUMEROS[0], Mazo::PALOS[0], valor_carta)
+    }
+
+    dinero_inicial_croupier = @game.get_croupier.get_dinero
+
+    @game.reemplazar_cartas_con_estas(cartas)
+
+    (1..3).each{ |nro_ronda|
+      @game.jugar_mano
+    }
+
+    nro_jugador = 1
+		@game.get_jugadores.each{|jugador|
+      case nro_jugador
+      when 1
+        assert_equal(@dinero_inicial_jugadores - 150, jugador.get_dinero, "El jugador #{nro_jugador} termina perdiendo")
+      when 2
+        assert_equal(@dinero_inicial_jugadores + 75, jugador.get_dinero, "El jugador #{nro_jugador} termina ganando")
+      when 3
+        assert_equal(@dinero_inicial_jugadores + 100, jugador.get_dinero, "El jugador #{nro_jugador} termina ganando")
+      when 4
+        assert_equal(@dinero_inicial_jugadores, jugador.get_dinero, "El jugador #{nro_jugador} termina empatando")
+      end
+
+      nro_jugador += 1
+    }
+
+    assert_equal(dinero_inicial_croupier - 25, @game.get_croupier.get_dinero, "El croupier termina perdiendo")
+  end
 end
