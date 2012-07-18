@@ -15,6 +15,9 @@ class Jugador
 	def duplicar?
 	end
 
+  def pagar_seguro?
+  end
+
 	def pedir_carta?
     @juego.sigue_en_juego?  
 	end
