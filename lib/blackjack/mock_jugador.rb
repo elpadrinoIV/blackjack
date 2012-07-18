@@ -33,11 +33,6 @@ class MockJugador < Jugador
 		false
 	end
 
-	def pagar_seguro
-		@apuesta_seguro = @apuestas_juegos[0]/2
-		@dinero -= @apuesta_seguro
-	end
-
   def apostar
     @apuestas_juegos[0] = @dinero_apuesta
     @dinero -= @dinero_apuesta

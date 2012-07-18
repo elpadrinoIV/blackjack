@@ -129,9 +129,13 @@ class Game
 
   # juega hasta que se llega al límite de cartas
   def jugar_ronda
+    nro_ronda = 1
     while self.se_puede_jugar_otra_mano?
       self.jugar_mano
+      nro_ronda += 1
     end
+
+    # puts "Rondas jugadas: #{nro_ronda}"
   end
 
   def se_puede_jugar_otra_mano?

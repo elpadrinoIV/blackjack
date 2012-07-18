@@ -27,6 +27,8 @@ class Jugador
 	end
 
 	def pagar_seguro
+		@apuesta_seguro = @apuestas_juegos[0]/2
+		@dinero -= @apuesta_seguro
 	end
 
 	def aperturar
