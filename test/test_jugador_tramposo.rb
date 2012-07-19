@@ -31,7 +31,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(@jugador.pedir_carta?, "El jugador debe pedir carta porque no se pasa si pide otra")
@@ -54,7 +54,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(false == @jugador.pedir_carta?, "El jugador no debe pedir carta porque se pasa si pide otra")
@@ -77,7 +77,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(@jugador.pagar_seguro?, "El jugador debe pagar seguro porque el croupier tiene blackjack")
@@ -100,7 +100,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(false == @jugador.pagar_seguro?, "El jugador no debe pagar seguro porque el croupier no tiene blackjack")
@@ -124,7 +124,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(@jugador.duplicar?, "El jugador debe duplicar porque gana seguro")
@@ -148,7 +148,7 @@ class TestJugadorTramposo < Test::Unit::TestCase
     }
 
     @game.reemplazar_cartas_con_estas(cartas)
-
+    @jugador.apostar
     @game.repartir
 
     assert(false == @jugador.duplicar?, "El jugador no debe duplicar porque pierde seguro")
